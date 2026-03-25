@@ -26,11 +26,12 @@ RUN npm install -g \
     puppeteer-real-browser \
     puppeteer-extra \
     puppeteer-extra-plugin-stealth \
-    rebrowser-patches
+    rebrowser-patches \
+    cheerio
 
 ENV PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=true \
     PUPPETEER_EXECUTABLE_PATH=/usr/bin/chromium-browser \
-    NODE_FUNCTION_ALLOW_EXTERNAL=puppeteer,puppeteer-extra,puppeteer-extra-plugin-stealth,puppeteer-real-browser
+    NODE_FUNCTION_ALLOW_EXTERNAL=puppeteer,puppeteer-extra,puppeteer-extra-plugin-stealth,puppeteer-real-browser,cheerio
 
 RUN mkdir -p /home/node/.n8n/nodes /home/node/.cache/puppeteer && \
     chown -R node:node /home/node
