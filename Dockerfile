@@ -20,21 +20,26 @@ RUN apk add --no-cache \
     ttf-freefont \
     xvfb
 
+# Installer puppeteer‑real‑browser (sans puppeteer global)
+# On utilise le contexte node existant pour éviter les conflits
+USER node
 RUN npm install -g \
-    puppeteer \
-    puppeteer-core \
     puppeteer-real-browser \
-    puppeteer-extra \
+    puppeteer-core \
     puppeteer-extra-plugin-stealth \
     rebrowser-patches \
     cheerio
 
+# Variables Puppeteer / puppeteer‑real‑browser
 ENV PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=true \
     PUPPETEER_EXECUTABLE_PATH=/usr/bin/chromium-browser \
-    NODE_FUNCTION_ALLOW_EXTERNAL=puppeteer,puppeteer-extra,puppeteer-extra-plugin-stealth,puppeteer-real-browser,cheerio
+    NODE_FUNCTION_ALLOW_EXTERNAL=puppeteer-real-browser,puppeteer-extra,puppeteer-extra-plugin-stealth,rebrowser-patches,cheerio
 
-RUN mkdir -p /home/node/.n8n/nodes /home/node/.cache/puppeteer && \
+# Répertoires n8n
+RUN mkdir -p /home/node/.n8n/nodes && \
+    mkdir -p /home/node/.cache/puppeteer && \
     chown -R node:node /home/node
 
+# Retour en node et travail dans le bon répertoire
 USER node
 WORKDIR /home/node
