@@ -21,8 +21,6 @@ RUN apk add --no-cache \
     xvfb
 
 # Installer puppeteer‑real‑browser (sans puppeteer global)
-# On utilise le contexte node existant pour éviter les conflits
-USER node
 RUN npm install -g \
     puppeteer-real-browser \
     puppeteer-core \
